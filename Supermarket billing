@@ -1,0 +1,124 @@
+//C++ code for Supermarket billing 
+
+#include<iostream>
+using namespace std;
+class product
+{
+    private:
+        string name;
+        string id2;
+        double price;
+        int quantitiy;
+        friend class Supermarker_billing;
+};
+class Supermarker_billing
+{
+    private: 
+        double total,price;
+        string name1,name2;
+        product p[100];
+        char ch;
+        static int id;
+         int n;
+    public:
+        void accept_details();
+        void addingitem();
+        void display();
+};
+int Supermarker_billing::id = 1;
+//int Supermarker_billing::n = 0;
+void Supermarker_billing::accept_details()
+{
+    cout<<"Enter Details "<<endl;
+    cout<<"Enter first name "<<endl;
+    cin>>name1;
+    cout<<"Enter last name "<<endl;
+    cin>>name2;
+    id++;
+    
+}
+
+void Supermarker_billing::addingitem()
+{
+    n=0;
+    do{
+       n++; 
+    cout<<"Enter product name "<<endl;
+    cin>>p[n].name;
+     cout<<"Enter product id  "<<endl;
+    cin>>p[n].id2;
+    cout<<"Enter product cost "<<endl;
+    cin>>p[n].price;
+    try
+    {
+      do{  
+    cout<<"Enter no . of quantities you want to purchase "<<endl;
+    cin>>p[n].quantitiy;
+    if(p[n].quantitiy<=0)
+    throw p[n].quantitiy;
+     
+          
+      }while(p[n].quantitiy<=0);
+    }
+    catch(int m)
+    {
+        cout<<"Please enter valid no . of quantities ";
+    }
+    
+    total = total + p[n].price*p[n].quantitiy;
+    cout<<"Do you want to add more items (y/n) ?"<<endl;
+    cin>>ch;
+    }while(ch=='y'||ch=='Y');
+    
+}
+
+void Supermarker_billing::display()
+{
+    cout<<"**Super Market Bill **"<<endl;
+    cout<<"Customer Name : "<<name1<<" "<<name2<<endl;
+    cout<<"Customer ID : "<<id<<endl;
+    cout<<"Product id | Product Name | Qantitiy | Cost(per unit)"<<endl;
+    for(int i=1;i<=n;i++)
+    {
+        cout<<p[i].id2<<"   |        "<<p[i].name<<"  |      "<<p[i].quantitiy<<"    |     "<<p[i].price<<"     |"<<endl;
+    }
+    cout<<"\n TOTAL : "<<total;
+}
+
+int main()
+{
+    int ch;
+    char ch1;
+    Supermarker_billing ob ;
+    do{
+        
+        cout << "1. Accept new Customer details " << endl;
+        cout << "2. Adding items list" << endl;
+        cout << "3. Display Bill" << endl;
+        cout << "4. Exit" << endl;
+        cout<<"Enter choice "<<endl;
+        cin>>ch;
+        
+        switch (ch)
+            {
+                case 1:
+                ob.accept_details();
+                break;
+                case 2:
+                ob.addingitem();
+                break;
+                case 3:
+                ob.display();
+                break;
+                case 4:
+                return 0;
+                break;
+                default :
+                cout<<"Invalid choice ";
+            }
+     cout<<"Do you want to continue (y/n) "<<endl;
+    cin>>ch1;
+	   }while(ch1=='y'||ch1=='Y');
+    return 0;
+}
+
