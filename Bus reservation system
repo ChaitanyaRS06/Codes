@@ -1,0 +1,146 @@
+//C++  code  for a bus reservation system 
+
+#include<iostream>
+using namespace std;
+class Bus_info
+{
+	private:
+	string  passname,source,destination;
+	int age,busno,depart_time,choice,c,r;
+	int seat_no[41];
+	static int n1,id;
+	public:
+	void accept();
+	 void displaydetails();
+	 void displayall();
+	 
+	 Bus_info()
+	 {
+	     for(int i=0;i<=40;i++)
+	     {
+	         seat_no[i]=-1;
+	     }
+	 }
+	 };
+	 int Bus_info::n1 = 1;
+	 int Bus_info::id = 1;
+	void Bus_info::displaydetails()
+	{
+	 cout<<"\n  passenger details are as follows ";
+	 cout<<"\n passenger id: "<<id;
+	 cout<<"\n passenger name: "<<passname;
+	 cout<<"\n source city :"<<source;
+	 cout<<"\n Destination city: "<<destination;
+	 cout<<"\n Passenger age : "<<age;
+	 cout<<"\n Bus number : "<<busno;
+	 cout<<"\n time : "<<depart_time;
+	 }
+	 
+	 void Bus_info::accept()
+	 {
+	     c=0;
+	  try{
+	      if(n1>40)
+	      throw n1;
+	  cout<<"\n Please enter passenger details ";
+	  cout<<"\n passenger name:"<<endl;
+	  cin>>passname;
+	  /*cout<<" source :"<<endl;
+	  cin>>source;
+	  cout<<"destination:"<<endl;
+	  cin>>destination;
+	  cout<<"age:"<<endl;
+	  cin>>age;
+	  cout<<"Bus no:"<<endl;
+	  cin>>busno;
+	  cout<<"depart_time:"<<endl;
+	  cin>>depart_time;*/
+	  displayall();
+	  do{
+	      
+	  cout<<"\n Enter the seat number you want"<<endl;
+	  cin>>choice;
+	  if(choice>40)
+	  throw choice;
+	  if(seat_no[choice]==-1)
+	  {
+	      cout<<"Seat assigned"<<endl;
+	      cout<<"your id is "<<id<<endl;
+	      seat_no[choice]=0;
+	      id++;
+	      c++;
+	      break;
+	  }
+	  else if(seat_no[choice]==0)
+	  {
+	      cout<<"Seat not available Please enter a different choice "<<endl;
+	  }
+	      
+	  }while(c==0);
+	  n1++;
+	  cout<<n1;
+	 }
+	     catch(int m)
+	     {
+	         cout<<"Maximum capacity reached \n Seats not available :("<<endl;
+	     }
+	 }
+	 
+	 void Bus_info::displayall()
+	 {
+	     r=0;
+	     cout<<"Seats available are : "<<endl;
+	     for(int i=1;i<=40;i++)
+	     {
+	         if(r==4)
+	         {
+	             cout<<"\n";
+	             r=0;
+	         }
+	         if(seat_no[i]==-1)
+	         {
+	             cout<<i<<"_  ";
+	         }
+	         else if(seat_no[i]==0)
+	         cout<<i<<"*  ";
+	         r++;
+	     }
+	 }
+	 
+	 int main()
+	 {
+	     int ch;
+	     Bus_info ob1;
+	     char ch1;
+	     do{
+	         
+	        cout << "1. Accept info" << endl;
+            cout << "2. Display info" << endl;
+            cout << "3. Display available seats " << endl;
+            cout << "4. Exit" << endl;
+            cout<<"Enter choice "<<endl;
+            cin>>ch;
+            
+        	 
+        	 switch (ch)
+            {
+                case 1:
+                ob1.accept();
+                break;
+                case 2:
+                ob1.displaydetails();
+                break;
+                case 3:
+                ob1.displayall();
+                break;
+                case 4:
+                return 0;
+                break;
+                default :
+                cout<<"Invalid choice ";
+            }
+            cout<<"Do you want to continue (y/n) "<<endl;
+            cin>>ch1;
+	     }while(ch1=='y'||ch1=='Y');
+	     return 0;
+	 }
